@@ -1,35 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Image,SafeAreaView, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React,{ useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import Login from './screens/Login';
+import { NavigationContainer } from '@react-navigation/native';
+import Home from './screens/Home';
+import Cadastro from './screens/Cadastro';
 
 const Stack = createStackNavigator();
 
-export default function App() {
+function MyStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <SafeAreaView style={styles.container}>
-          <Text>Open up App.js to start working on your app!</Text>
-          <Text>{"\n"}Hello World!</Text>
-          <Button
-            color="red"
-            title="Entrar" 
-          />
-          <StatusBar style="auto" />
-        </SafeAreaView>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}
+    >
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Cadastro" component={Cadastro} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#686868',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+
+  return (
+        <NavigationContainer>
+            <MyStack />
+        </NavigationContainer>
+  );
+}
+
