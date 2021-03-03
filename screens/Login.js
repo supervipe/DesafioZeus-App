@@ -11,7 +11,7 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState(null)
   const [senha, setSenha] = useState(null)
   const api = axios.create({
-    baseURL: "http://172.18.9.216:8000",
+    baseURL: "http://192.168.1.10:8000",
   });
 
   const cadastrar = () =>{
@@ -26,16 +26,18 @@ export default function Login({navigation}) {
         email: email,
         senha: senha })
     .then(async res => {
-        console.log(res.data[0]);
         if(res.data[0] != null) {
             await AsyncStorage.setItem('id', res.data[0].id.toString());
+            await AsyncStorage.setItem('nome', res.data[0].nome.toString());
+            await AsyncStorage.setItem('email', res.data[0].email.toString());
+            await AsyncStorage.setItem('cachorro', res.data[0].cachorro.toString());
             console.log(await AsyncStorage.getItem('id'))
             return true;
         } else {
             Alert.alert("Usuário não encontrado! Por favor checar email ou senha.");
         }
     })
-    .catch(err => console.log('Erro:', err));
+    .catch(err => console.warn('Erro:', err));
     if(cont) {
       navigation.reset({
         index: 0,
@@ -74,7 +76,7 @@ export default function Login({navigation}) {
             title="Entrar"
             onPress={()=> entrar()}
           />
-          <Text onPress={()=> cadastrar()} style = {{ color: '#007AFF', fontSize:17 }}>
+          <Text onPress={()=> cadastrar()} style = {{ color: '#fff', fontSize:17 }}>
             {"\n"}
             Clique aqui para se cadastrar!
           </Text>
@@ -85,7 +87,7 @@ export default function Login({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e47087',
+    backgroundColor: '#ff5678',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10

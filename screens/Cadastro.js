@@ -16,13 +16,20 @@ export default function Cadastro({navigation}) {
   const [cachorro, setCachorro] = useState(null)
 
   const api = axios.create({
-    baseURL: "http://172.18.9.216:8000",
+    baseURL: "http://192.168.1.10:8000",
   });
+
+  const voltar = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: "Login"}]
+  })
+  }
 
   const cadastrar = async () =>{
     //const cont = await LoginFunc(email,senha);
     if(senha == senhaC){
-        axios.post("/usuario", { 
+        await api.post("/usuario", { 
             nome: nome,
             email: email,
             senha: senha,
@@ -39,6 +46,9 @@ export default function Cadastro({navigation}) {
             console.log(res.data[0]);
             if(res.data[0] != null) {
                 await AsyncStorage.setItem('id', res.data[0].id.toString());
+                await AsyncStorage.setItem('nome', res.data[0].nome.toString());
+                await AsyncStorage.setItem('email', res.data[0].email.toString());
+                await AsyncStorage.setItem('cachorro', res.data[0].cachorro.toString());
                 console.log(await AsyncStorage.getItem('id'))
                 return true;
             }
@@ -57,7 +67,19 @@ export default function Cadastro({navigation}) {
 
   return (
         <View style={styles.container}>
-          <Image source={icon} style={styles.imageSize}></Image>
+          <View style={{position:'absolute',left:10,top:22}}>
+            <Button
+              icon={
+                <Icon
+                  name="arrow-left"
+                  size={25}
+                  color="white"
+                />
+              }
+              onPress={()=> voltar()}
+            />
+          </View>
+          
           <Text style={styles.innertext} h2>Cadastro</Text>
           <Input 
             placeholder="Nome"
@@ -107,15 +129,7 @@ export default function Cadastro({navigation}) {
             onChangeText={value => setCachorro(value)}
           />
           <Button
-             color="#354355"
-            icon={
-              <Icon
-                name="arrow-right"
-                size={20}
-                color="white"
-              />
-            }
-            title="Cadastrar-se"
+            title="Cadastrar"
             onPress={()=> cadastrar()}
           />
         </View>
@@ -125,7 +139,7 @@ export default function Cadastro({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e47087',
+    backgroundColor: '#ff5678',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10
