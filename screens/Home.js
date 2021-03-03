@@ -5,12 +5,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import icon from '../assets/icon.png'
 import UserImage from '../assets/UserImage.png'
-import { color, set } from 'react-native-reanimated';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Alert } from 'react-native';
 import moment from 'moment';
-import { getActionFromState } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -171,9 +169,9 @@ function Sobre() {
       <Text h4>
         Para relato de problemas ou mais informações contactar:
                 {"\n"}
-                Telefone: (85) 99248-2002
+                Telefone: (XX) XXXXX-XXXX
                 {"\n"}
-                Email: victorsantos@unifor.br
+                Email: XXXXX@gmail.com
                 {"\n"}
       </Text>
     </View>
